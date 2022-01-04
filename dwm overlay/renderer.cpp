@@ -5,17 +5,17 @@
 
 namespace overlay {
 
-	//ÎÄ¼ş°æ±¾: 10.0.19041.1387
-	//Ãû³Æ: dwmcore.dll
-	//´óĞ¡: 3580416 ×Ö½Ú(3496 KiB)
+	//æ–‡ä»¶ç‰ˆæœ¬: 10.0.19041.1387
+	//åç§°: dwmcore.dll
+	//å¤§å°: 3580416 å­—èŠ‚(3496 KiB)
 	//CRC32 : E845F058
 	//CRC64 : 959E58158672DF18
 	//SHA256 : c843d140b7ddf98dae7de2267cbd94ad1d14865fe6345f2783ae794d7bb78c67
 	//SHA1 : de86f64a8e7072ea22298b850e14a9c3198f7a93
 	//BLAKE2sp : 771a5be4bc2bc9894df8aa580f2d390178bc13e8979a4fd7483d87aa0d587084
-	//ÏµÍ³°æ±¾ WINDOWS10 PRO 21H2 19044.1415
+	//ç³»ç»Ÿç‰ˆæœ¬ WINDOWS10 PRO 21H2 19044.1415
 
-	//IDXGISwapChainDWM1¼´ÎªÎÒÃÇĞèÒªµÄSwapChain£¬²»Í¬°æ±¾ÏµÍ³¿ÉÄÜ²»Í¬
+	//IDXGISwapChainDWM1å³ä¸ºæˆ‘ä»¬éœ€è¦çš„SwapChainï¼Œä¸åŒç‰ˆæœ¬ç³»ç»Ÿå¯èƒ½ä¸åŒ
 	//__int64 __fastcall CD3DDevice::PresentMPO(CD3DDevice *this, struct IDXGISwapChainDWM1 *a2, __int64 a3, char a4)
 	using Fn_Present = __int64(__fastcall*)(void* thisptr, IDXGISwapChain* a2, __int64 a3, char a4);
 
@@ -44,14 +44,14 @@ namespace overlay {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 
-		//³õÊ¼»¯
+		//åˆå§‹åŒ–
 		ImGui_ImplWin32_Init(FindWindow(L"Progman", L"Program Manager"));
 		ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
-		//ÉèÖÃ·ç¸ñ
+		//è®¾ç½®é£æ ¼
 		ImGui::StyleColorsLight();
 
-		//×ÖÌåÉèÖÃ
+		//å­—ä½“è®¾ç½®
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
 		io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\msyh.ttc", 16.0F, NULL, io.Fonts->GetGlyphRangesChineseFull());
@@ -66,12 +66,12 @@ namespace overlay {
 		ImGui::NewFrame();
 
 		ImGui::Begin("Hello, world!");
-		ImGui::Text(u8" Githbub £ºhttps://github.com/LoxTus ");
-		ImGui::Text(u8" ÖĞÎÄÏÔÊ¾²âÊÔ ");
+		ImGui::Text(u8" Gitbub ï¼šhttps://github.com/LoxTus ");
+		ImGui::Text(u8" ä¸­æ–‡æ˜¾ç¤ºæµ‹è¯• ");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
 		ImGui::GetForegroundDrawList()->AddText(ImVec2(10,10),IM_COL32_WHITE," Hello world !");
-		ImGui::GetForegroundDrawList()->AddText(ImVec2(10,30), IM_COL32_WHITE, u8" ÖĞÎÄÏÔÊ¾²âÊÔ ");
+		ImGui::GetForegroundDrawList()->AddText(ImVec2(10,30), IM_COL32_WHITE, u8" ä¸­æ–‡æ˜¾ç¤ºæµ‹è¯• ");
 
 		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
 		ImGui::Render();
@@ -88,7 +88,7 @@ namespace overlay {
 	{
 		auto instruction = pattern_scan("dwmcore.dll","E8 ?? ?? ?? ?? 8B D8 85 C0 78 ?? 41 8A D6 49 8B CF E8 ?? ?? ?? ?? EB ??");
 		//instruction + instruction size + offset
-		//Ïà¶ÔµØÖ·×ª»»¾ø¶ÔµØÖ·
+		//ç›¸å¯¹åœ°å€è½¬æ¢ç»å¯¹åœ°å€
 		auto offsets = *(LONG*)((ULONG64)instruction + 1);
 		auto result =(ULONG64)instruction + 5 + offsets;
 		return result;
